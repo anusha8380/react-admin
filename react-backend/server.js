@@ -7,12 +7,17 @@ app.use(cors({
     origin:'*'
 }));
 
+app.get('/', function(req, res) {
+    res.send('hello');
+});
+
 const mongoose = require("mongoose");
 
 mongoose.connect("mongodb://localhost:27017/REACT_BACKEND");
 
+
 const employee_route = require("./routes/employeeRoutes");
-app.use("/api",employee_route)
+app.use("/",employee_route)
 
 app.listen(8000, ()=>{
     console.log("Server started at 8000..");

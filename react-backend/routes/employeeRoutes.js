@@ -9,8 +9,8 @@ employee_routes.use(bodyParser.urlencoded({
 }))
 
 const employeeController = require("../controller/userController");
-employee_routes.get("/",employeeController.getUsers);
+employee_routes.get("/users",employeeController.getUsers);
 employee_routes.post("/register",employeeController.createUser);
-
+employee_routes.post("/login",employeeController.loginUser);
 
 module.exports = employee_routes;
