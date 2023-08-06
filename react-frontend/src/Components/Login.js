@@ -28,7 +28,7 @@ const Login = () =>{
         if(res.data.res.isAdmin === true){
           navigate("/dashboard");
         }else{
-          toast.error('Login with Admin credentials to access the site.');
+          toast.error('Login with Admin credentials to access the dashboard.');
         }
         
       })

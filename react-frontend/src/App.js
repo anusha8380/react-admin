@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from "./Components/Login";
 import AdminDashboard from "./Components/AdminDashboard";
+import Employee from "./Components/Employee";
 
 
 function App() {
@@ -19,11 +20,6 @@ function App() {
         position: toast.POSITION.TOP_RIGHT
     });
 };
-
-  let urlLink = '/res';
-  let logout = () =>{
-    console.log('logout');
-  }
   return (
     <>
     <Router>
@@ -32,7 +28,8 @@ function App() {
           <Route path="/" element={<Register/>}/>
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/dashboard" element={<AdminDashboard/>}/>
+          <Route exact path="/Dashboard" element={<AdminDashboard/>}/>
+          <Route exact path="/Employee" element={<Employee/>}/>
         </Routes>
       </div>
     </Router>
