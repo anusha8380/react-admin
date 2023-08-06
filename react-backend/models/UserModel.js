@@ -13,6 +13,19 @@ const EmployeeSchema = mongoose.Schema({
     isAdmin:{
         type:Boolean,
         required:true
+    },
+    poolJoinedData:{
+        type:Date
+    },
+    poolEndData:{
+        type:Date
+    },
+    primarySkills:{
+        type:String
+    },
+    isActive:{
+        type:Boolean,
+        default:true
     }
 },
 { collection: "employees" });

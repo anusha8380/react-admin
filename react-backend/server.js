@@ -8,7 +8,7 @@ app.use(cors({
 }));
 
 app.get('/', function(req, res) {
-    res.send('hello');
+    res.send('hello api works fine..');
 });
 
 const mongoose = require("mongoose");
