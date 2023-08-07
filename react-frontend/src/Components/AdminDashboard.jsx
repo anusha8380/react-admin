@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from "react";
 import Header from "./Header";
-import  EmployeCard  from "../Components/Card";
+import  Employee  from "../Components/Employee";
 import axios from "axios";
 
 
@@ -19,7 +19,8 @@ const AdminDashboard = () =>{
   return(
     <>
     <Header/>
-    <EmployeCard data={employeData}/>
+    <Employee/>
+    {/* <EmployeCard data={employeData}/> */}
     </>
   )
 };

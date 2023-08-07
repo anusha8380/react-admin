@@ -13,8 +13,9 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
+import HM_LOGO from '../assests/hm-logo.png';
 
-const pages = ["Employee", "Dashboard"];
+const pages = ["Add Employee"];
 const settings = ["Logout"];
 export default function Header(props) {
   const navigate = useNavigate();
@@ -46,12 +47,13 @@ export default function Header(props) {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
+            <img src={HM_LOGO} alt="HM logo" href="/" />
             <Typography
               variant="h6"
               noWrap
               component="a"
-              href="/Dashboard"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -62,7 +64,7 @@ export default function Header(props) {
                 textDecoration: "none",
               }}
             >
-              Admin panel
+              Pool employee status tracker
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -94,15 +96,15 @@ export default function Header(props) {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
+                {/* {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
-                      <Link to={`/${page}`} style={{ textDecoration: "none" }}>
+                      <Link to={"/employee"} style={{ textDecoration: "none" }}>
                         {page}
                       </Link>
                     </Typography>
                   </MenuItem>
-                ))}
+                ))} */}
               </Menu>
             </Box>
             <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -110,7 +112,7 @@ export default function Header(props) {
               variant="h5"
               noWrap
               component="a"
-              href="/Dashboard"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
@@ -122,26 +124,26 @@ export default function Header(props) {
                 textDecoration: "none",
               }}
             >
-              Admin panel
+              Pool employee status tracker
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              {/* {pages.map((page) => (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  <Link to={`/${page}`} style={{ textDecoration: "none" }}>
+                  <Link to={"/employee"} style={{ textDecoration: "none" }}>
                     {page}
                   </Link>
                 </Button>
-              ))}
+              ))} */}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={JSON.parse(localStorage.getItem('user'))} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu

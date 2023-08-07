@@ -25,10 +25,9 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<Register/>}/>
+          <Route path="/" element={<AdminDashboard/>}/>
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/login" element={<Login/>}/>
-          <Route exact path="/Dashboard" element={<AdminDashboard/>}/>
           <Route exact path="/Employee" element={<Employee/>}/>
         </Routes>
       </div>

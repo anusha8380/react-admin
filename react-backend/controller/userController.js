@@ -81,10 +81,20 @@ const createUser = async(req,res)=>{
      data:updatedUserList
    })
 }
+
+const deleteUser= async(req,res)=>{
+  let userId = req.params.user_id;
+  const deletedUser = await Employee.findByIdAndDelete(userId)
+  res.status(200).send({
+   status:"Success",
+   data:deletedUser
+ })
+}
 module.exports={
     createUser,
     getUsers,
     loginUser,
     registerUser,
-    updateUser
+    updateUser,
+    deleteUser
 }

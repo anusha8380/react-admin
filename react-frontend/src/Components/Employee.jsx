@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import DataTable from "./TableData";
-
-
-
+import TableData from "./TableData";
 
 const headCells = [
   {
@@ -54,7 +51,7 @@ const Employee = () =>{
 console.log(employeData,'data');
 
 
- return(<DataTable headData={headCells} tableData={employeData}/>)
+ return(<TableData headData={headCells} tableData={employeData}/>)
 }
 
 export default Employee;
