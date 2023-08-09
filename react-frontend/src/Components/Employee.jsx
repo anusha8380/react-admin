@@ -4,6 +4,12 @@ import TableData from "./TableData";
 
 const headCells = [
   {
+    id: '_id',
+    numeric: true,
+    disablePadding: true,
+    label: 'ID',
+  },
+  {
     id: 'name',
     numeric: false,
     disablePadding: true,
@@ -43,15 +49,22 @@ const Employee = () =>{
       return {...item, id:index}
     })
   }
+
   const fetchEmployeData = () =>{
    axios.get("http://localhost:8000/users").then((res)=>{
     setEmployeData(createData(res.data.employees))
    })
   }
-console.log(employeData,'data');
+
+  const deleteEmp = () =>{
+    console.log('delete');
+    axios.delete("http://localhost:8000/user/").then((res)=>{
+     setEmployeData(createData(res.data.employees))
+    })
+   }
 
 
- return(<TableData headData={headCells} tableData={employeData}/>)
+ return(<TableData headData={headCells} tableData={employeData} deleteEmployee={deleteEmp}/>)
 }
 
 export default Employee;

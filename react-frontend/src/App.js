@@ -6,13 +6,12 @@ import {
 } from "react-router-dom";
 import './App.css';
 import {Register} from './Components/Register';
-import Header from './Components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from "./Components/Login";
 import AdminDashboard from "./Components/AdminDashboard";
 import Employee from "./Components/Employee";
-
+import Employe from "./Components/Employe";
 
 function App() {
   const showToastMessage = (props) => {
@@ -29,10 +28,10 @@ function App() {
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/Employee" element={<Employee/>}/>
+          <Route exact path="/employee/:user_email" element={<Employe/>}/>
         </Routes>
       </div>
     </Router>
-    {/* <button onClick={showToastMessage}>Notify</button> */}
      <ToastContainer />
      </>
   );
