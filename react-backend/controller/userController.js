@@ -31,6 +31,13 @@ const getUsers= async(req,res)=>{
    return res.send({status:'ok', employees:employeeList})
 }
 
+const getUser= async(req,res)=>{
+  let userEmail = req.params.user_email;
+  const employee = await Employee.findOne({email:userEmail});
+  console.log(employee);
+ return res.send({status:'ok', employees:employee})
+}
+
 const loginUser = async(req,res)=>{
   const validUser =await Employee.findOne({email:req.body.email});
   
@@ -96,5 +103,6 @@ module.exports={
     loginUser,
     registerUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUser
 }
