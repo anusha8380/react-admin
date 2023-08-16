@@ -11,8 +11,8 @@ const AdminDashboard = () =>{
     fetchEmployeData();
   },[]);
 
-  const fetchEmployeData = () =>{
-   axios.get("http://localhost:8000/users").then((res)=>{
+  const fetchEmployeData = async() =>{
+  await axios.get("http://localhost:8000/users").then((res)=>{
     setEmployeData(res.data.employees)
    })
   }
