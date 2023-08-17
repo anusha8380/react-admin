@@ -11,10 +11,7 @@ const registerUser = async(req,res)=>{
       const employee=await Employee.create({
           name:req.body.name,
           email:req.body.email,
-          isAdmin:req.body.isAdmin,
-          primarySkills:req.body.skills,
-          poolJoinedDate:req.body.joinedDate,
-          endDate:req.body.endDate
+          isAdmin:req.body.isAdmin
       })
   
      return res.json({message:"User registered successfully. Please login!!", status:200, data:employee });
