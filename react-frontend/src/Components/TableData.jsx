@@ -141,7 +141,6 @@ function EnhancedTableToolbar(props) {
   const [endDate, setendDate] = React.useState("");
   const [skills, setskills] = React.useState("");
 
-
   const handleChange = (event) => {
     setIsAdmin(event.target.value);
   };
@@ -163,8 +162,8 @@ function EnhancedTableToolbar(props) {
   };
 
   const handleSkillsChange = (event) => {
-    setskills(event.target.value)
-  }
+    setskills(event.target.value);
+  };
 
   const navigate = useNavigate();
 
@@ -173,9 +172,9 @@ function EnhancedTableToolbar(props) {
       name: Name,
       email: Email,
       isAdmin: isAdmin,
-      joinedDate:joinedDate,
-      endDate:endDate,
-      skills:skills
+      joinedDate: joinedDate,
+      endDate: endDate,
+      skills: skills,
     };
     Axios.post("http://localhost:8000/register", data)
       .then((res) => {
@@ -295,12 +294,13 @@ function EnhancedTableToolbar(props) {
                       value={endDate}
                       onChange={(newValue) => setendDate(newValue)}
                     />
+                    <br />
                     <TextField
-                variant="outlined"
-                label="Primary Skills"
-                value={skills}
-                onChange={handleSkillsChange}
-              ></TextField>
+                      variant="outlined"
+                      label="Primary Skills"
+                      value={skills}
+                      onChange={handleSkillsChange}
+                    ></TextField>
                   </>
                 ) : (
                   ""
@@ -447,6 +447,9 @@ export default function TableData({ tableData, headData }) {
                     <TableCell>{row.email}</TableCell>
                     <TableCell>{row.isAdmin.toString()}</TableCell>
                     <TableCell>{row.isActive.toString()}</TableCell>
+                    <TableCell>{row.primarySkills}</TableCell>
+                    <TableCell>{row.poolJoinedDate}</TableCell>
+                    <TableCell>{row.endDate}</TableCell>
                   </TableRow>
                 );
               })}

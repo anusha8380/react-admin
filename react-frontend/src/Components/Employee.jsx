@@ -32,7 +32,25 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: 'Is Active',
+  },
+  {
+    id: 'primarySkills',
+    numeric: false,
+    disablePadding: false,
+    label: 'Skills',
   }
+  // {
+  //   id: 'joinedDate',
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: 'Pool joined date',
+  // },
+  // {
+  //   id: 'endDate',
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: 'Pool end date',
+  // }
 ];
 
 const Employee = () =>{
