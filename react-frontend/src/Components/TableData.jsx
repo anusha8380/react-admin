@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -23,6 +23,22 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+import { Stack } from "@mui/material";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import CloseIcon from "@mui/icons-material/Close";
+import FormControl from "@mui/material/FormControl";
+import { DateField } from "@mui/x-date-pickers/DateField";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -117,6 +133,60 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   const { numSelected } = props;
+  const [open, setOpen] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
+  const [Name, setName] = React.useState("");
+  const [Email, setEmail] = React.useState("");
+  const [joinedDate, setjoinedDate] = React.useState("");
+  const [endDate, setendDate] = React.useState("");
+  const [skills, setskills] = React.useState("");
+
+
+  const handleChange = (event) => {
+    setIsAdmin(event.target.value);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleSkillsChange = (event) => {
+    setskills(event.target.value)
+  }
+
+  const navigate = useNavigate();
+
+  const onSubmit = () => {
+    const data = {
+      name: Name,
+      email: Email,
+      isAdmin: isAdmin,
+      joinedDate:joinedDate,
+      endDate:endDate,
+      skills:skills
+    };
+    Axios.post("http://localhost:8000/register", data)
+      .then((res) => {
+        toast.success(`${res.data.message}`);
+        navigate("/");
+        handleClose();
+      })
+      .catch((res) => {
+        toast.error(`${res.response.data.message}`);
+      });
+  };
 
   return (
     <Toolbar
@@ -155,19 +225,98 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
-            <DeleteIcon/>
+            <DeleteIcon onClick={() => console.log("delete")} />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip>
           <IconButton title="Add employee">
-            <AddCircleOutlineIcon />
+            <AddCircleOutlineIcon onClick={handleClickOpen} />
           </IconButton>
           <IconButton title="Filter list">
             <FilterListIcon />
           </IconButton>
         </Tooltip>
       )}
+      <div style={{ textAlign: "center" }}>
+        {/* <h1>MUI - DIALOG</h1>
+            <Button onClick={handleClickOpen} color="primary" variant="contained">Open Popup</Button> */}
+        <Dialog
+          // fullScreen
+          open={open}
+          onClose={handleClose}
+          fullWidth
+          maxWidth="sm"
+        >
+          <DialogTitle>
+            Add Employee{" "}
+            <IconButton onClick={handleClose} style={{ float: "right" }}>
+              <CloseIcon color="primary"></CloseIcon>
+            </IconButton>{" "}
+          </DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>Do you want remove this user?</DialogContentText> */}
+            <Stack spacing={2} margin={2}>
+              <TextField
+                variant="outlined"
+                label="Name"
+                value={Name}
+                onChange={handleNameChange}
+              ></TextField>
+              <TextField
+                variant="outlined"
+                label="Email"
+                value={Email}
+                onChange={handleEmailChange}
+              ></TextField>
+              <FormControl>
+                <InputLabel id="demo-simple-select-label">Is Admin</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={isAdmin}
+                  label="Is Admin"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={true}>True</MenuItem>
+                  <MenuItem value={false}>False</MenuItem>
+                </Select>
+                <br />
+                {isAdmin === false ? (
+                  <>
+                    <DateField
+                      label="Pool joined Date"
+                      value={joinedDate}
+                      onChange={(newValue) => setjoinedDate(newValue)}
+                    />
+                    <br />
+                    <DateField
+                      label="Pool end Date"
+                      value={endDate}
+                      onChange={(newValue) => setendDate(newValue)}
+                    />
+                    <TextField
+                variant="outlined"
+                label="Primary Skills"
+                value={skills}
+                onChange={handleSkillsChange}
+              ></TextField>
+                  </>
+                ) : (
+                  ""
+                )}
+              </FormControl>
+              <Button color="primary" variant="contained" onClick={onSubmit}>
+                Submit
+              </Button>
+            </Stack>
+          </DialogContent>
+          <DialogActions>
+            {/* <Button color="success" variant="contained">Yes</Button>
+                    <Button onClick={closepopup} color="error" variant="contained">Close</Button> */}
+          </DialogActions>
+        </Dialog>
+      </div>
     </Toolbar>
   );
 }
@@ -198,7 +347,7 @@ export default function TableData({ tableData, headData }) {
     }
     setSelected([]);
   };
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleClick = (event, name, id, email) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
@@ -217,7 +366,7 @@ const navigate = useNavigate()
     }
 
     setSelected(newSelected);
-    navigate(`/employee/${email}`)
+    // navigate(`/employee/${email}`)
   };
 
   const handleChangePage = (event, newPage) => {
@@ -249,10 +398,7 @@ const navigate = useNavigate()
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-          >
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -270,7 +416,9 @@ const navigate = useNavigate()
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row?.name, row?.id, row?.email)}
+                    onClick={(event) =>
+                      handleClick(event, row?.name, row?.id, row?.email)
+                    }
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
